@@ -1,0 +1,21 @@
+name: Unit Test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Windows dependencies
+        if: startsWith(matrix.os,'windows')
+        run: |
+          choco install -y llvm
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build
+      - name: Test
+        run: cargo test

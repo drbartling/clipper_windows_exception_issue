@@ -1,0 +1,14 @@
+name: Static Analysis
+
+on: push
+
+jobs:
+  clippy:
+    # For now, there's no demonstrable need to run static analysis on multiple
+    # platforms.  Ubuntu, is lowest cost and fastest to set up.
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Clippy
+        run: cargo clippy -- -D warnings
